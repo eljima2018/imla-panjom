@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>املاساز فارسی پنجم دبستان</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@500;700&family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f1e6;--fg:#2b2b2b;--card:#fffdf7;--line:#d9cfb8;--accent:#1f7a5c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1d1c;--fg:#eee;--card:#262a28;--line:#444;--accent:#4fc79d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1d1c;--fg:#eee;--card:#262a28;--line:#444;--accent:#4fc79d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Vazirmatn',Tahoma,sans-serif;padding:14px;max-width:980px;margin-inline:auto}
+h1{font-size:1.3rem;margin:4px 0 10px;text-align:center}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:10px}
+select,button,textarea{font:inherit;border-radius:10px;border:1px solid var(--line);padding:8px 12px;background:var(--card);color:var(--fg)}
+button{cursor:pointer;background:var(--accent);color:#fff;border:0;font-weight:700}
+button.alt{background:transparent;color:var(--fg);border:1px solid var(--line)}
+button:disabled{opacity:.5}
+#status{flex-basis:100%;font-size:.9rem;min-height:1.4em}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:8px 0}
+textarea{width:100%;min-height:90px;font-family:'Noto Naskh Arabic',serif;font-size:1.1rem}
+.frame{background:linear-gradient(135deg,#b9814a,#8a5a2b 50%,#a8713a);padding:14px;border-radius:14px;box-shadow:0 8px 20px #0005;margin-top:10px}
+.board{position:relative;border-radius:6px;padding:10px 14px 18px;color:#f4f1e6;background:radial-gradient(ellipse at 30% 20%,#2f6b50,#1f4f3b 60%,#17392b);box-shadow:inset 0 0 40px #0008;overflow:hidden;min-height:420px}
+.board:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 80%,#ffffff12,transparent 40%),radial-gradient(circle at 20% 60%,#ffffff0d,transparent 35%);pointer-events:none}
+.lbl{font-size:.85rem;opacity:.75;margin-bottom:4px}
+canvas{width:100%;display:block;touch-action:none;border-radius:6px;background:repeating-linear-gradient(to bottom,transparent 0 69px,#ffffff2e 69px 71px);cursor:crosshair}
+.tools{display:flex;gap:6px;margin:6px 0}
+.tools button{background:#ffffff1f;font-size:.85rem;padding:5px 10px}
+.hr{border-top:3px dashed #f4f1e655;margin:12px 0}
+#fix{font-family:'Noto Naskh Arabic','Vazirmatn',Tahoma,serif;font-size:1.7rem;line-height:2.2;font-weight:700;text-shadow:0 0 2px #fff6,1px 1px 0 #0003}
+#fix .row{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:2px 0}
+#fix .bad{color:#ff9d8f;position:relative;display:inline-block}
+#fix .bad.strike:after{content:"";position:absolute;right:-4px;left:-4px;top:55%;border-top:3px solid #ff6b57;transform-origin:right;animation:st .4s both}
+@keyframes st{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#fix .tag{font-family:'Vazirmatn',sans-serif;font-size:.75rem;font-weight:400;opacity:.7}
+#fix .w{display:inline-block;padding:0 .2em;clip-path:inset(-30% 0 -30% 100%);color:#fff7c2}
+#fix .stu{font-weight:500;font-size:1.4rem;opacity:.95}
+#fix .stu b{color:#ff9d8f;border-bottom:2px wavy #ff6b57;font-weight:700}
+#hand{position:absolute;font-size:2.3rem;pointer-events:none;display:none;transform:translate(-8%,-88%) rotate(-8deg);filter:drop-shadow(2px 3px 2px #0006);z-index:5}
+#stamp{position:absolute;left:14px;top:14px;border:4px double #ff8e7c;color:#ffb3a6;border-radius:50%;width:112px;height:112px;display:none;align-items:center;justify-content:center;flex-direction:column;transform:rotate(-12deg);font-weight:700;text-align:center;background:#0000002e;z-index:4}
+#stamp b{font-size:2rem;line-height:1.1}
+#cmt{color:#fff7c2;font-weight:700;margin-top:8px}
+.tray{height:14px;background:linear-gradient(#a8713a,#7a4d22);margin-top:-2px;border-radius:0 0 8px 8px;position:relative}
+.tray i{position:absolute;top:-6px;height:7px;width:34px;border-radius:4px;background:#f4f1e6}
+.tray i:nth-child(1){right:30px}.tray i:nth-child(2){right:80px;background:#ffd9d2;width:24px}.tray i:nth-child(3){right:120px;background:#fff3b0;width:28px}
+</style>
+</head>
+<body>
+<h1>✏️ املاساز فارسی — پنجم دبستان</h1>
+
+<div class="bar">
+  <select id="lesson" aria-label="درس"></select>
+  <button id="go">▶ شروع املا (معلم می‌خواند)</button>
+  <button id="rep" class="alt">↻ تکرار عبارت</button>
+  <button id="stop" class="alt">■ توقف</button>
+  <button id="chk" style="margin-inline-start:auto">✅ تصحیح و نمره</button>
+  <div id="status">درس را انتخاب کنید و «شروع املا» را بزنید.</div>
+</div>
+
+<details id="custom"><summary>متن دلخواه (هر درس یا هر متنی که می‌خواهید، حدود پنج خط)</summary>
+  <textarea id="ctext" placeholder="متن را اینجا بنویسید یا از کتاب بچسبانید؛ بعد از لیست درس‌ها «متن دلخواه» را انتخاب کنید"></textarea>
+</details>
+<details id="teacher"><summary>متن برای معلم (دانش‌آموز نبیند)</summary><div id="ttext" style="font-family:'Noto Naskh Arabic',serif;font-size:1.2rem;line-height:2"></div></details>
+
+<div class="frame"><div class="board" id="board">
+  <div class="lbl">تخته‌ی املا — دانش‌آموز با ماوس یا انگشت اینجا بنویسد</div>
+  <canvas id="cv" width="1000" height="360"></canvas>
+  <div class="tools"><button id="undo">↶ برگردان</button><button id="clr">🧽 پاک‌کردن تخته</button></div>
+  <div class="hr"></div>
+  <div id="fix"><span class="tag">اینجا اشتباهات و املای درست نوشته می‌شود…</span></div>
+  <div id="cmt"></div>
+  <div id="hand">✍️</div>
+  <div id="stamp"><span>نمره</span><b id="sc"></b><span>از ۲۰</span></div>
+</div><div class="tray"><i></i><i></i><i></i></div></div>
+
+<details open><summary>به‌جای دست‌نویس، تایپ کنید / متن تشخیص‌داده‌شده را اصلاح کنید</summary>
+  <textarea id="ta" placeholder="نوشته‌ی دانش‌آموز…"></textarea>
+</details>
+
+<script>
+const L=[
+["درس ۱: تماشاخانه","جهانی که در آن زندگی می‌کنیم، سرشار از شگفتی‌هاست. پدیده‌هایی لطیف، زیبا و عجیب، پیش روی ما هستند که به سادگی از کنارشان می‌گذریم؛ در حالی که اگر اندکی درنگ کنیم، می‌بینیم که هر کدام از این پدیده‌ها تماشاگهی برای دیدن زیبایی‌های آفرینش و ایستگاه‌هایی برای اندیشیدن هستند."],
+["درس ۲: فضل خدا","فضل خدای را، که تواند شمار کرد؟\nیا کیست آن که شکر یکی از هزار کرد؟\nبحر آفرید و بر و درختان و آدمی\nخورشید و ماه و انجم و لیل و نهار کرد\nاجزای خاک مرده، به تأثیر آفتاب\nبستان و میوه و چمن و لاله‌زار کرد\nابر، آب داد بیخ درختان مرده را\nشاخ برهنه، پیرهن نوبهار کرد\nتوحیدگوی او، نه بنی‌آدم‌اند و بس\nهر بلبلی که نغمه بر شاخسار کرد"],
+["درس ۳: رازی و ساخت بیمارستان","در روزگاران کهن، قرار بود بیمارستانی در شهری، ساخته شود. همه در این اندیشه بودند که بیمارستان را در کدام بخش شهر بسازند. هر کس می‌خواست بیمارستان، نزدیک خانه‌ی او باشد. یکی می‌گفت: «بهتر است نزدیک بازار شهر باشد.» دیگری می‌گفت: «بهتر است نزدیک گرمابه‌ی شهر باشد.»"],
+["درس ۴: بازرگان و پسران","بازرگانی بود که سرمایه‌ی فراوانی داشت. او مردی با تجربه بود و از حوادث روزگار، بسیار چیزها آموخته بود. سال‌ها گذشت و بازرگان، صاحب چند فرزند شد. زندگی خوب و آرامی داشت و به آینده‌ی فرزندان خود می‌اندیشید. فرزندان هم در کنار مادر و پدر، فضای گرم و پرمهری داشتند."],
+["درس ۵: چنار و کدوبن","بوته‌ی کدویی در کنار چنار کهن‌سال و بلندقامتی روبید؛ در مدت بیست روز، قد کشید، از تنه‌ی درخت پیچ خورد و به بالاترین شاخه‌ی چنار رسید. همین‌که خود را در آن بالا دید، باورش شد که خیلی بزرگ شده است. نگاهی به چنار کرد و"],
+["درس ۶: سرود ملی","شما هم سرود ملی کشورمان را شنیده‌اید. هر کشوری، افزون بر پرچم که نشانه‌ی استقلال آن است، یک سرود ملی نیز دارد که، خلاصه‌ی افتخارات، عظمت‌ها و خواسته‌های یک ملت است. سرود ملی همچون آیینه‌ای است که مردم یک کشور، گذشته‌ها، آرزوها، پیروزی‌ها و اعتقادات خود را در آن می‌یابند."],
+["متن دلخواه",""]];
+const $=id=>document.getElementById(id), P=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const sel=$('lesson'); L.forEach((l,i)=>sel.add(new Option(l[0],i)));
+const text=()=>sel.value==L.length-1?$('ctext').value.trim():L[sel.value][1];
+const phrases=()=>text().split(/[،؛.؟:!\n]+|»\s|«/).map(s=>s.trim()).filter(s=>s.replace(/[«»]/g,'').length>1);
+function showT(){$('ttext').textContent=text()||'—'; if(sel.value==L.length-1)$('custom').open=true}
+sel.onchange=showT; $('ctext').oninput=showT; showT();
+const st=m=>$('status').textContent=m;
+
+/* ---- معلم می‌خواند ---- */
+let run=0,cur=0;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function speak(t){return new Promise(res=>{try{const u=new SpeechSynthesisUtterance(t);u.lang='fa-IR';u.rate=.8;
+ const v=speechSynthesis.getVoices().find(v=>v.lang&&v.lang.toLowerCase().startsWith('fa'));if(v)u.voice=v;
+ u.onend=u.onerror=()=>res();speechSynthesis.speak(u);}catch(e){res()}})}
+function hasFa(){try{return speechSynthesis.getVoices().some(v=>v.lang&&v.lang.toLowerCase().startsWith('fa'))}catch(e){return false}}
+$('go').onclick=async()=>{
+ const ph=phrases(); if(!ph.length){st('ابتدا متن دلخواه را وارد کنید.');return}
+ speechSynthesis.cancel(); const id=++run; if(!hasFa()){$('teacher').open=true;st('صدای فارسی روی این دستگاه نیست؛ معلم از «متن برای معلم» بخواند.');return}
+ for(cur=0;cur<ph.length&&id==run;cur++){
+  st(`عبارت ${P(cur+1)} از ${P(ph.length)} — گوش کنید و بنویسید…`);
+  await speak(ph[cur]); if(id!=run)return;
+  await sleep(1200+ph[cur].split(/\s+/).length*1700);
+ }
+ if(id==run){st('املا تمام شد. مرور کنید و «تصحیح و نمره» را بزنید.');speak('پایان')}
+};
+$('rep').onclick=()=>{const ph=phrases();if(!ph.length)return;speechSynthesis.cancel();speak(ph[Math.max(0,Math.min(cur-(run?1:0),ph.length-1))])};
+$('stop').onclick=()=>{run++;speechSynthesis.cancel();st('متوقف شد.')};
+
+/* ---- تخته‌ی نوشتن ---- */
+const cv=$('cv'),cx=cv.getContext('2d');let strokes=[],drawing=null;
+function redraw(bg){cx.clearRect(0,0,1000,360);if(bg){cx.fillStyle='#fff';cx.fillRect(0,0,1000,360)}
+ cx.lineCap=cx.lineJoin='round';cx.lineWidth=bg?4:3.2;cx.strokeStyle=bg?'#000':'#f7f4ea';cx.shadowColor=bg?'transparent':'#ffffff88';cx.shadowBlur=bg?0:2;
+ for(const s of strokes){cx.beginPath();s.forEach((p,i)=>i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1]));if(s.length==1)cx.lineTo(s[0][0]+.1,s[0][1]);cx.stroke()}}
+const pt=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*1000/r.width,(e.clientY-r.top)*360/r.height]};
+cv.onpointerdown=e=>{cv.setPointerCapture(e.pointerId);if($('ta').dataset.ocr){$('ta').value='';$('ta').dataset.ocr=''}drawing=[pt(e)];strokes.push(drawing);redraw()};
+cv.onpointermove=e=>{if(drawing){drawing.push(pt(e));redraw()}};
+cv.onpointerup=cv.onpointercancel=()=>drawing=null;
+$('undo').onclick=()=>{strokes.pop();redraw()};$('clr').onclick=()=>{strokes=[];redraw();clearFix()};
+
+/* ---- تشخیص دست‌خط ---- */
+async function ocr(){
+ const c=window.claude&&claude.use?await claude.use('sample'):null; if(!c)throw new Error('تشخیص دست‌خط در این نمایش فعال نیست؛ متن را در کادر پایین تایپ کنید.');
+ redraw(true);const blob=await new Promise(r=>cv.toBlob(r,'image/png'));redraw();
+ const r=await c("این تصویر دست‌خط فارسی یک دانش‌آموز است که املا نوشته. دقیقاً همان چیزی را که نوشته رونویسی کن، کلمه به کلمه. هرگز املای او را اصلاح نکن، حتی اگر غلط باشد، و چیزی اضافه یا کم نکن. فقط خود متن را بده، بدون توضیح و بدون علامت‌گذاری اضافی. خطوط را با یک فاصله پشت سر هم بنویس.",{images:[blob],modelTier:'default',cache:false});
+ return r.text.trim();
+}
+
+/* ---- مقایسه ---- */
+const PUN=/[«»"'.,،؛:؟?!…|\/()\-–_ـ]/g;
+const norm=w=>w.replace(/[\u064B-\u065F\u0670\u0640\u200c\u200d]/g,'').replace(/ي|ی/g,'ی').replace(/ك/g,'ک').replace(/ة/g,'ه').replace(PUN,'');
+const toks=s=>s.split(/\s+/).map(w=>({r:w.replace(PUN,''),n:norm(w)})).filter(t=>t.n);
+function diff(R,S){const n=R.length,m=S.length,d=Array.from({length:n+1},()=>Array(m+1).fill(0));
+ for(let i=0;i<=n;i++)d[i][0]=i;for(let j=0;j<=m;j++)d[0][j]=j;
+ for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)d[i][j]=Math.min(d[i-1][j-1]+(R[i-1].n==S[j-1].n?0:1),d[i-1][j]+1,d[i][j-1]+1);
+ const ops=[];let i=n,j=m;
+ while(i||j){if(i&&j&&d[i][j]==d[i-1][j-1]+(R[i-1].n==S[j-1].n?0:1)){ops.push({t:R[i-1].n==S[j-1].n?'ok':'sub',r:R[i-1].r,s:S[j-1].r});i--;j--}
+  else if(i&&d[i][j]==d[i-1][j]+1){ops.push({t:'del',r:R[i-1].r});i--}
+  else{ops.push({t:'ins',s:S[j-1].r});j--}}
+ return ops.reverse()}
+
+/* ---- نوشتن با دست روی تخته ---- */
+const board=$('board'),hand=$('hand'),fix=$('fix');
+function clearFix(){fix.innerHTML='<span class="tag">اینجا اشتباهات و املای درست نوشته می‌شود…</span>';$('stamp').style.display='none';$('cmt').textContent=''}
+async function writeWord(el){
+ const b=board.getBoundingClientRect(),r=el.getBoundingClientRect(),dur=500+el.textContent.length*190,t0=performance.now();
+ hand.style.display='block';
+ await new Promise(res=>{(function f(now){const p=Math.min(1,(now-t0)/dur),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+  el.style.clipPath=`inset(-30% 0 -30% ${(1-e)*100}%)`;
+  hand.style.left=(r.right-e*r.width-b.left)+'px';
+  hand.style.top=(r.top+r.height*.62+Math.sin(e*46)*r.height*.13-b.top)+'px';
+  p<1?requestAnimationFrame(f):res()})(t0)});
+ el.style.clipPath='none';hand.style.display='none';await sleep(250)}
+let busy=0;
+async function grade(txt){
+ const id=++busy,ops=diff(toks(text()),toks(txt)),ref=toks(text()).length;
+ const err=ops.filter(o=>o.t!='ok'),sc=Math.max(0,Math.round(20*(1-err.length/ref)*2)/2);
+ $('stamp').style.display='none';$('cmt').textContent='';
+ fix.innerHTML='<div class="lbl" style="font-family:Vazirmatn">نوشته‌ی دانش‌آموز (غلط‌ها قرمز):</div>';
+ const s=document.createElement('div');s.className='row stu';
+ s.innerHTML=ops.filter(o=>o.t!='del').map(o=>o.t=='ok'?o.s:`<b>${o.s}</b>`).join(' ')+(ops.some(o=>o.t=='del')?' <b>▢</b>':'');fix.append(s);
+ await sleep(600);
+ if(!err.length){fix.insertAdjacentHTML('beforeend','<div class="row">بدون غلط! 🌟</div>')}
+ else{fix.insertAdjacentHTML('beforeend','<div class="lbl" style="font-family:Vazirmatn;margin-top:8px">املای درست کلمه‌ها:</div>');
+  for(const o of err){if(id!=busy)return;
+   const row=document.createElement('div');row.className='row';
+   const tag=o.t=='del'?'جا افتاده':o.t=='ins'?'اضافه':'غلط';
+   row.innerHTML=`<span class="tag">${tag}</span>`+(o.s?`<span class="bad">${o.s}</span>`:'')+(o.r?`<span class="tag">←</span><span class="w">${o.r}</span>`:'');
+   fix.append(row);await sleep(300);
+   const bad=row.querySelector('.bad');if(bad){bad.classList.add('strike');await sleep(500)}
+   const w=row.querySelector('.w');if(w)await writeWord(w)}}
+ $('sc').textContent=P(sc);$('stamp').style.display='flex';
+ $('cmt').textContent=`${P(ref-err.length>0?ref-err.length:0)} کلمه از ${P(ref)} کلمه درست بود. `+(sc>=19?'آفرین! عالی بود 🌟':sc>=17?'خیلی خوب! 👏':sc>=14?'خوب است؛ کمی دقت بیشتر.':sc>=10?'نیاز به تمرین بیشتر داری، با کلمه‌های بالا دوباره بنویس.':'اصلاً نگران نباش؛ کلمه‌های بالا را چند بار بنویس و دوباره امتحان کن.');
+ st('تصحیح انجام شد.');
+}
+$('chk').onclick=async()=>{
+ if(!text()){st('ابتدا متن دلخواه را وارد کنید.');return}
+ const ta=$('ta');let t=ta.value.trim();
+ if(!t&&strokes.length){try{st('در حال خواندن دست‌خط دانش‌آموز…');t=await ocr();ta.value=t;ta.dataset.ocr='1'}catch(e){st(e.message||'خواندن دست‌خط ممکن نشد؛ متن را تایپ کنید.');return}}
+ if(!t){st('چیزی نوشته نشده است.');return}
+ $('chk').disabled=true;await grade(t);$('chk').disabled=false;
+};
+</script>
+</body>
+</html>
